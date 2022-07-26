@@ -1,0 +1,30 @@
+{
+    "apps":[
+        {
+            "name": "app", 
+            "script": "start.js", 
+            "env": {
+                "COMMON_VARIABLE": "true"
+            },
+            "env_production": {
+                "NODE_ENV": "production" 
+            }
+        }
+    ],
+    "deploy": {
+        "production": {
+            "user":"yang-yi_113789",
+            "host": ["112.74.108.45"],
+            "port": "22",
+            "ref": "origin/master",
+            "repo": "https://github.com/TerryYoung111/redesigned-sniffle.git",
+            "path": "/home/projects/webpack",
+            "ssh_options": "StrictHostKeyChecking=no",
+            "env": {
+                "NODE_ENV": "production"
+            },
+            "pre-deploy": "git pull",
+            "post-deploy" : "npm install && npm run build && pm2 reload ecosystem.config.js --env production"
+        }
+    }
+}
